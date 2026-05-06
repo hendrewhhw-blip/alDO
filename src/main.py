@@ -12,18 +12,19 @@ from cerebro import gen_brain
 # ──────────────────────────────────────────────
 # Configurações
 # ──────────────────────────────────────────────
+voices = ["Voices/pt_BR-faber-medium.onnx.json","Voices/pt_BR-faber-medium.onnx.json","Voices/pt_BR-faber-medium.onnx.json","Voices/pt_BR-faber-medium.onnx.json","Voices/hal.onnx.json"]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sistema  = platform.system()
 
 if sistema == "Windows":
-    PIPER_PATH = os.path.join(BASE_DIR, "piper", "piper.exe")
+    PIPER_PATH = "Piper_type/piper_win/piper.exe"
     FFPLAY     = "ffplay"
 else:
-    PIPER_PATH = os.path.join(BASE_DIR, "piper", "piper")
+    PIPER_PATH = "Piper_type/piper_unix/piper"
     FFPLAY     = "ffplay"
 
-VOICE_MODEL    = os.path.join(BASE_DIR, "pt_BR-faber-medium.onnx")
+VOICE_MODEL    = voices[random.randint(0,4)]
 PALAVRAS_SAIDA = {"sair", "exit", "quit", "saindo", "tchau", "adeus"}
 FRASES_SAIDA   = ["Tchau!", "Adeus!", "Até logo!", "Tenha um bom dia!", "Até mais!"]
 
