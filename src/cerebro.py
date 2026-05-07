@@ -221,4 +221,5 @@ def gen_brain(falar_fn=None, ouvir_fn=None):
             print("[Erro aquecimento]", e)
     brain.preaquecimento = preaquecimento
     brain.inicio = lambda: brain("Cumprimente a plateia com humor leve.")
+    print(f"Debug|{brain}")
     return brain

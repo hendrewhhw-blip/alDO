@@ -4,24 +4,26 @@ import os
 import re
 import random
 from cerebro import gen_brain
-
 # ──────────────────────────────────────────────
 # Configurações
 # ──────────────────────────────────────────────
-voices = ["Voices/pt_BR-faber-medium.onnx.json","Voices/pt_BR-faber-medium.onnx.json","Voices/pt_BR-faber-medium.onnx.json","Voices/hal.onnx.json"]
+voices = ["pt_BR-faber-medium.onnx","pt_BR-faber-medium.onnx","pt_BR-faber-medium.onnx","hal.onnx","glados.onnx"]
+voice_mdl = voices[random.randint(0,4)]
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sistema  = platform.system()
 
 if sistema == "Windows":
-    PIPER_PATH = "Piper_type/piper_win/piper.exe"
+    PIPER_PATH = os.path.join(BASE_DIR, "Piper_type","piper_win", "piper.exe")
     FFPLAY     = "ffplay"
 else:
-    PIPER_PATH = "Piper_type/piper_unix/piper"
+    PIPER_PATH = os.path.join(BASE_DIR,"Piper_type","piper_unix" "piper")
     FFPLAY     = "ffplay"
 
-VOICE_MODEL    = voices[random.randint(0,3)]
+VOICE_MODEL    = os.path.join(BASE_DIR, "Voices", voice_mdl)
 PALAVRAS_SAIDA = {"sair", "exit", "quit", "saindo", "tchau", "adeus"}
 FRASES_SAIDA   = ["Tchau!", "Adeus!", "Até logo!", "Tenha um bom dia!", "Até mais!"]
+
+
 
 # ──────────────────────────────────────────────
 # TTS — igual ao main.py
@@ -71,7 +73,6 @@ brain.preaquecimento()
 print("IA: ", end="", flush=True)
 brain.inicio()
 print()
-
 print("\nPronto. Digite sua mensagem (ou 'sair' para encerrar).\n")
 
 while True:
@@ -92,6 +93,7 @@ while True:
 
     print("IA: ", end="", flush=True)
     resposta = brain(texto=prompt)
+    print(f"Resposta|{resposta}")
     if not resposta:
         print("[silêncio intencional]")
     print()
