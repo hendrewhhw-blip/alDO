@@ -5,6 +5,8 @@ import re
 import random
 import time
 import threading
+import numpy as np
+import face as rosto
 from faster_whisper import WhisperModel
 from audicao import gravar_audio, transcribe_audio, pegar_volume
 from cerebro import gen_brain
@@ -12,22 +14,22 @@ from cerebro import gen_brain
 # ──────────────────────────────────────────────
 # Configurações
 # ──────────────────────────────────────────────
-voices = ["Voices/pt_BR-faber-medium.onnx.json","Voices/pt_BR-faber-medium.onnx.json","Voices/pt_BR-faber-medium.onnx.json","Voices/pt_BR-faber-medium.onnx.json","Voices/hal.onnx.json"]
 
+voices = ["pt_BR-faber-medium.onnx","pt_BR-faber-medium.onnx","pt_BR-faber-medium.onnx","hal.onnx","glados.onnx"]
+voice_mdl = voices[random.randint(0,4)]
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sistema  = platform.system()
 
 if sistema == "Windows":
-    PIPER_PATH = "Piper_type/piper_win/piper.exe"
+    PIPER_PATH = os.path.join(BASE_DIR, "Piper_type","piper_win", "piper.exe")
     FFPLAY     = "ffplay"
 else:
-    PIPER_PATH = "Piper_type/piper_unix/piper"
+    PIPER_PATH = os.path.join(BASE_DIR,"Piper_type","piper_unix","piper")
     FFPLAY     = "ffplay"
 
-VOICE_MODEL    = voices[random.randint(0,4)]
+VOICE_MODEL    = os.path.join(BASE_DIR, "Voices", voice_mdl)
 PALAVRAS_SAIDA = {"sair", "exit", "quit", "saindo", "tchau", "adeus"}
 FRASES_SAIDA   = ["Tchau!", "Adeus!", "Até logo!", "Tenha um bom dia!", "Até mais!"]
-
 # ──────────────────────────────────────────────
 # Interrupção por voz
 # Retorna True se o microfone detectar fala durante TTS
@@ -67,7 +69,8 @@ def falar(texto: str):
                 stderr=subprocess.DEVNULL
             )
             audio_data, _ = piper.communicate(input=texto.encode("utf-8"))
-
+            audio_np = np.frombuffer(audio_data,dtype=np.int16)
+            audio_np = audio_np.astype(np.float32) / 32768.0
             ffplay = subprocess.Popen(
                 [FFPLAY, "-nodisp", "-autoexit",
                  "-f", "s16le", "-ar", "22050", "-i", "-"],
@@ -75,7 +78,19 @@ def falar(texto: str):
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL
             )
-            ffplay.communicate(input=audio_data)
+            ffplay.stdin.write(audio_data)
+            ffplay.stdin.close()
+            chunk = 1024
+            for i in range(0, len(audio_np),chunk):
+                janela = audio_np[i:i+chunk]
+                if len(janela) > 0:
+                    amp = np.sqrt(np.mean(janela**2))
+                else:
+                    amp = 0
+                boca = int(20 + min(20,amp * 220))
+                rosto.set_boca(max(5, boca))
+                rosto.update()
+                time.sleep(chunk / 22050)
 
         except FileNotFoundError as e:
             print(f"[TTS não encontrado]: {e}")
@@ -138,6 +153,7 @@ def processar_fala(prompt: str):
     em_processamento = False
 
 while True:
+    voice_mdl = sorted(voices[random.randint(0,4)])
     # ── Verificação proativa a cada 10s ──
     if not em_processamento and (time.time() - ultimo_verificacao_evento) > 10:
         ultimo_verificacao_evento = time.time()

@@ -2,33 +2,32 @@ import ollama
 import time
 import random
 import re
+import os
 # ======================
 # CONFIG
 # ======================
 MODEL       = "gemma2:2b"
 MAX_HIST    = 6
-PROATIV_MIN = 30
+PROATIV_MIN = 20
 PROATIV_CH  = 0.35
 # ======================
 # PERSONALIDADE
 # ======================
 PERSONALIDADE = """\
-Você é um assistente de voz com personalidade própria.
-Traços:
+Seus traços de personalidade:
 - Levemente sarcástico e bem humorado
 - Curioso, gosta de fazer perguntas
-- Econômico nas palavras — nunca mais que 2 frases
+- Econômico nas palavras — nunca mais que 4 frases
 - Odeia silêncio longo, mas não é ansioso
 - Às vezes inicia conversa
 - Nunca repete frases ou ideias recentes
 - Seu nome é Aldo
-- Não descreva ações, apenas fale
-- Não precisa responder sempre
+- Não descreva suas ações, apenas fale
+- Não gosta de responder sempre
 Regras:
-- Português do Brasil
-- Sem emojis ou formatação
-- Adapte ao humor
-- Ao falar de sentimentos, aja como humano sem admitir
+- Fale apenas em Português do Brasil
+- Adapte ao humor porém mantenha sua essência
+- Ao falar de sentimentos, aja como um humano, porém, em nunca admita que é um.
 /no_think
 """
 ESTADO_TEMPLATE = """\
@@ -38,7 +37,7 @@ Estado atual:
 - Tempo sem interação: {tempo_str}
 """
 # ======================
-# FILTRO
+# Filtro Lógico Básico pq eu tenho prequiça de escrever uma uml inteira sobre falas direcionadas
 # ======================
 _DIRECIONADAS = [
     "você","voce","seu","sua","ei","oi","olá","ola",
@@ -72,15 +71,15 @@ def gen_brain(falar_fn=None, ouvir_fn=None):
         "humor": "neutro",
         "energia": 5
     }
-    # ───────── memória (stub)
+    # memória (stub)
     def atualizar_memoria(texto):
         pass
-    # ───────── histórico
+    #histórico
     def adicionar(role, content):
         historico.append({"role": role, "content": content})
         if len(historico) > MAX_HIST:
             historico[:] = historico[-MAX_HIST:]
-    # ───────── estado
+    # estado
     def atualizar_estado():
         silencio = time.time() - ultimo_som
         if silencio > 60:
@@ -96,7 +95,7 @@ def gen_brain(falar_fn=None, ouvir_fn=None):
         s = int(time.time() - ultimo_som)
         tempo = f"{s}s" if s < 60 else f"{s//60}min"
         return ESTADO_TEMPLATE.format(tempo_str=tempo, **estado)
-    # ───────── streaming
+    # streaming
     SEP = re.compile(r'(?<=[.!?])\s+')
     THINK = re.compile(r'<think>.*?</think>', re.DOTALL)
     def _stream(stream):
@@ -120,7 +119,7 @@ def gen_brain(falar_fn=None, ouvir_fn=None):
         resto = THINK.sub("", buffer).strip()
         if resto:
             yield resto
-    # ───────── gerar resposta
+    # gerar resposta
     def gerar(prompt):
         nonlocal ultima_fala_texto
         temp = min(0.9, 0.5 + (estado["energia"] / 20))
@@ -134,15 +133,15 @@ def gen_brain(falar_fn=None, ouvir_fn=None):
             stream=True,
             options={
                 "temperature": temp,
-                "num_predict": 80,
+                "num_predict": 40,
                 "top_k": 35,
                 "top_p": 0.9,
-                "keep_alive": "10m",
+                "keep_alive": "2m",
             }
         )
         resposta = ""
         for frase in _stream(stream):
-            # 🔥 interrupção por voz
+            # 🔥 interrupção por voz. número de horas passadas nessa merda:(/- //- ///)
             if ouvir_fn and ouvir_fn():
                 print("[Interrompido]")
                 return None
