@@ -5,9 +5,11 @@ import re
 import random
 import numpy as np
 import time
+import threading
 from cerebro import gen_brain
-import face as rosto
+import rosto
 rosto.update()
+prompt = ""
 # ──────────────────────────────────────────────
 # Configurações
 # ──────────────────────────────────────────────
@@ -79,6 +81,14 @@ def falar(texto: str):
         print(f"[TTS não encontrado]: {e}")
     except Exception as e:
         print(f"[Erro no áudio]: {e}")
+def ler_input():
+    global prompt
+    while True:
+        try:
+            prompt = input("Você: ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\nEncerrando...")
+            break
 # ──────────────────────────────────────────────
 # Loop principal
 # ──────────────────────────────────────────────
@@ -90,26 +100,28 @@ print("IA: ", end="", flush=True)
 brain.inicio()
 print()
 print("\nPronto. Digite sua mensagem (ou 'sair' para encerrar).\n")
-
+threading.Thread(target=ler_input,daemon=True).start()
 while True:
+    rosto.update()
     voice_mdl = random.choice(sorted(voices))
-    try:
-        prompt = input("Você: ").strip()
-    except (EOFError, KeyboardInterrupt):
-        print("\nEncerrando...")
-        break
+    if prompt:
+        texto = prompt
+        prompt = None
+        
+        print("IA: ", end="", flush=True)
+        resposta = brain(texto=prompt)
+        print(f"Resposta|{resposta}")
+        
+        if not resposta:
+            print("[silêncio intencional]")
+        print()
 
+        if prompt.lower() in PALAVRAS_SAIDA:
+            despedida = random.choice(FRASES_SAIDA)
+            print(f"IA: {despedida}")
+            falar(despedida)
+            break
     if not prompt:
         continue
     
-    if prompt.lower() in PALAVRAS_SAIDA:
-        despedida = random.choice(FRASES_SAIDA)
-        print(f"IA: {despedida}")
-        falar(despedida)
-        break
-    print("IA: ", end="", flush=True)
-    resposta = brain(texto=prompt)
-    print(f"Resposta|{resposta}")
-    if not resposta:
-        print("[silêncio intencional]")
-    print()
+    

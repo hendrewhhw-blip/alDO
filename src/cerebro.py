@@ -3,6 +3,8 @@ import time
 import random
 import re
 import os
+from classificador import Classificador
+_clf = Classificador(usar_modelo=True)
 # ======================
 # CONFIG
 # ======================
@@ -191,7 +193,7 @@ def gen_brain(falar_fn=None, ouvir_fn=None):
             ultimo_som = time.time()
             adicionar("user", texto)
             atualizar_memoria(texto)
-            if deve_responder(texto):
+            if clf.deve_responder(texto):
                 resp = gerar(texto)
                 if resp:
                     adicionar("assistant", resp)
