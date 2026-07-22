@@ -1,0 +1,35 @@
+{
+    "nome": "Aldo",
+    "modelo": "gemma2:2b",
+    "backend": "ollama",
+    "idioma": "pt-BR",
+    "temperatura": 0.7,
+    "max_tokens": 120,
+    "historico": 8,
+    
+    "voz": "pt-BR-razo-medium.onnx",
+    "speaker": 0,
+    "chance_troca": 1,
+    "vozes_aleatorias": [
+        {"modelo": "pt_BR-faber-medium.onnx", "speaker": 0},
+        {"modelo": "pt_BR-faber-medium.onnx", "speaker": 1},
+        {"modelo": "hal.onnx", "speaker": 0},
+        {"modelo": "pt_BR-cadu-medium.onnx", "speaker": 0},
+        {"modelo": "pt_BR-edresson-medium.onnx", "speaker": 0},
+        {"modelo": "pt_BR-jeff-medium.onnx", "speaker": 0},
+        {"modelo": "pt-BR-razo-medium.onnx", "speaker": 0}
+    ],
+
+    "whisper": "tiny",
+    "avatar": true,
+    "tts": true,
+    "stt": true,
+    "microfone": true,
+    "interface": "tkinter",
+    "personalidade": "normal",
+    "salvar_conversas": true,
+    "salvar_memoria": true,
+    "pesquisa_semantica": true,
+    "backup_automatico": true,
+    "debug": false
+}

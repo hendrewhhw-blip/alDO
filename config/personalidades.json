@@ -1,0 +1,29 @@
+{
+    "normal": {
+        "prompt": "normal.md",
+        "voz": "pt_BR-faber-medium.onnx",
+        "avatar": "rosto.png",
+        "temperatura": 0.7
+    },
+
+    "am": {
+        "prompt": "am.md",
+        "voz": "hal.onnx",
+        "avatar": "AM.png",
+        "temperatura": 1.0
+    },
+
+    "hal9000": {
+        "prompt": "hal9000.md",
+        "voz": "hal.onnx",
+        "avatar": "hal.png",
+        "temperatura": 0.5
+    },
+
+    "glados": {
+        "prompt": "glados.md",
+        "voz": "glados.onnx",
+        "avatar": "glados.png",
+        "temperatura": 0.8
+    }
+}

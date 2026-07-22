@@ -1,0 +1,370 @@
+/* =======================================================
+   ALDO
+   Tema Escuro
+   ======================================================= */
+
+QWidget{
+    background:#202124;
+    color:#ECECEC;
+    font-size:11pt;
+    font-family:"Segoe UI","Noto Sans","Arial";
+}
+
+
+/* -------------------------------------------------------
+   Botões
+------------------------------------------------------- */
+
+QPushButton{
+
+    background:#2D2F34;
+
+    border:1px solid #3A3D43;
+
+    border-radius:8px;
+
+    padding:8px 14px;
+
+}
+
+QPushButton:hover{
+
+    background:#383B41;
+
+}
+
+QPushButton:pressed{
+
+    background:#4A4F57;
+
+}
+
+QPushButton:disabled{
+
+    color:#888;
+
+    background:#252525;
+
+}
+
+
+/* -------------------------------------------------------
+   Campos
+------------------------------------------------------- */
+
+QLineEdit,
+QTextEdit,
+QPlainTextEdit{
+
+    background:#2A2C31;
+
+    border:1px solid #40434A;
+
+    border-radius:8px;
+
+    padding:6px;
+
+    selection-background-color:#3B82F6;
+
+}
+
+
+/* -------------------------------------------------------
+   Combobox
+------------------------------------------------------- */
+
+QComboBox{
+
+    background:#2D2F34;
+
+    border:1px solid #444;
+
+    border-radius:6px;
+
+    padding:5px;
+
+}
+
+QComboBox::drop-down{
+
+    border:none;
+
+}
+
+QComboBox QAbstractItemView{
+
+    background:#2D2F34;
+
+    border:1px solid #555;
+
+    selection-background-color:#3B82F6;
+
+}
+
+
+/* -------------------------------------------------------
+   SpinBox
+------------------------------------------------------- */
+
+QSpinBox,
+QDoubleSpinBox{
+
+    background:#2D2F34;
+
+    border:1px solid #444;
+
+    border-radius:6px;
+
+    padding:4px;
+
+}
+
+
+/* -------------------------------------------------------
+   CheckBox
+------------------------------------------------------- */
+
+QCheckBox{
+
+    spacing:8px;
+
+}
+
+QCheckBox::indicator{
+
+    width:18px;
+
+    height:18px;
+
+}
+
+QCheckBox::indicator:unchecked{
+
+    border:2px solid #777;
+
+    background:#2A2A2A;
+
+}
+
+QCheckBox::indicator:checked{
+
+    border:2px solid #3B82F6;
+
+    background:#3B82F6;
+
+}
+
+
+/* -------------------------------------------------------
+   Labels
+------------------------------------------------------- */
+
+QLabel{
+
+    color:#ECECEC;
+
+}
+
+
+/* -------------------------------------------------------
+   ToolBar
+------------------------------------------------------- */
+
+ToolBar{
+
+    background:#27292D;
+
+    border-bottom:1px solid #3B3D42;
+
+}
+
+
+/* -------------------------------------------------------
+   Chat
+------------------------------------------------------- */
+
+ChatPanel{
+
+    background:#1C1D20;
+
+}
+
+
+/* -------------------------------------------------------
+   Legenda
+------------------------------------------------------- */
+
+Legenda{
+
+    background:rgba(20,20,20,200);
+
+    color:white;
+
+    border-radius:12px;
+
+    padding:12px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+
+/* -------------------------------------------------------
+   Configurações
+------------------------------------------------------- */
+
+Settings{
+
+    background:#252629;
+
+}
+
+
+/* -------------------------------------------------------
+   Scroll
+------------------------------------------------------- */
+
+QScrollBar:vertical{
+
+    background:#242424;
+
+    width:12px;
+
+}
+
+QScrollBar::handle:vertical{
+
+    background:#555;
+
+    border-radius:6px;
+
+    min-height:30px;
+
+}
+
+QScrollBar::handle:vertical:hover{
+
+    background:#777;
+
+}
+
+QScrollBar::add-line,
+QScrollBar::sub-line{
+
+    height:0px;
+
+}
+
+
+/* -------------------------------------------------------
+   Tabs
+------------------------------------------------------- */
+
+QTabWidget::pane{
+
+    border:1px solid #444;
+
+}
+
+QTabBar::tab{
+
+    background:#2D2F34;
+
+    padding:8px 16px;
+
+}
+
+QTabBar::tab:selected{
+
+    background:#3B82F6;
+
+}
+
+QTabBar::tab:hover{
+
+    background:#40434A;
+
+}
+
+
+/* -------------------------------------------------------
+   Splitter
+------------------------------------------------------- */
+
+QSplitter::handle{
+
+    background:#333;
+
+}
+
+
+/* -------------------------------------------------------
+   GroupBox
+------------------------------------------------------- */
+
+QGroupBox{
+
+    border:1px solid #444;
+
+    border-radius:8px;
+
+    margin-top:10px;
+
+    padding-top:10px;
+
+}
+
+QGroupBox::title{
+
+    subcontrol-origin:margin;
+
+    left:10px;
+
+    padding:0 5px;
+
+}
+
+
+/* -------------------------------------------------------
+   Tooltip
+------------------------------------------------------- */
+
+QToolTip{
+
+    background:#2D2F34;
+
+    border:1px solid #555;
+
+    color:white;
+
+}
+
+
+/* -------------------------------------------------------
+   Destaques
+------------------------------------------------------- */
+
+#eyeBlue{
+
+    color:#3B82F6;
+
+}
+
+#eyeRed{
+
+    color:#EF4444;
+
+}
+
+#accent{
+
+    color:#3B82F6;
+
+}
+
+#danger{
+
+    color:#EF4444;
+}

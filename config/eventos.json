@@ -1,0 +1,37 @@
+[
+    {
+        "gatilho": "obrigado",
+        "tipo": "humor",
+        "valor": "feliz"
+    },
+
+    {
+        "gatilho": "burro",
+        "tipo": "humor",
+        "valor": "irritado"
+    },
+
+    {
+        "gatilho": "cala a boca",
+        "tipo": "humor",
+        "valor": "triste"
+    },
+
+    {
+        "gatilho": "idiota",
+        "tipo": "humor",
+        "valor": "irritado"
+    },
+
+    {
+        "gatilho": "kkkk",
+        "tipo": "humor",
+        "valor": "divertido"
+    },
+
+    {
+        "gatilho": "bom trabalho",
+        "tipo": "energia",
+        "valor": 8
+    }
+]

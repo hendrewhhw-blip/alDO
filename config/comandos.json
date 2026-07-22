@@ -1,0 +1,55 @@
+[
+    {
+        "gatilho": [
+            "lembre que",
+            "guarde que"
+        ],
+        "acao": "lembrar"
+    },
+
+    {
+        "gatilho": [
+            "esqueça que"
+        ],
+        "acao": "esquecer"
+    },
+
+    {
+        "gatilho": [
+            "esqueça tudo"
+        ],
+        "acao": "limpar_memoria"
+    },
+
+    {
+        "gatilho": [
+            "modo normal"
+        ],
+        "acao": "personalidade",
+        "valor": "normal"
+    },
+
+    {
+        "gatilho": [
+            "modo am"
+        ],
+        "acao": "personalidade",
+        "valor": "am"
+    },
+
+    {
+        "gatilho": [
+            "modo hal"
+        ],
+        "acao": "personalidade",
+        "valor": "hal9000"
+    },
+
+    {
+        "gatilho": [
+            "modo glados"
+        ],
+        "acao": "personalidade",
+        "valor": "glados"
+    }
+]
